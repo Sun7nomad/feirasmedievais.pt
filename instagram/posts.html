@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<title>Instagram Posts · Feiras Medievais</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#1a1008;font-family:'Mulish',sans-serif;padding:40px;}
+h1{color:#f3e6cf;font-family:'Cinzel',serif;font-size:22px;letter-spacing:.1em;text-align:center;margin-bottom:8px;}
+.subtitle{color:#8a7055;font-size:13px;text-align:center;margin-bottom:40px;letter-spacing:.05em;}
+.grid{display:grid;grid-template-columns:repeat(3,480px);gap:32px;justify-content:center;}
+.post{width:480px;height:480px;position:relative;overflow:hidden;border-radius:4px;cursor:pointer;flex-shrink:0;}
+.post-label{color:#8a7055;font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;text-align:center;margin-top:10px;}
+.hint{color:#5a4535;font-size:11px;text-align:center;margin-top:4px;}
+
+/* --- SHARED ELEMENTS --- */
+.crest-svg{filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));}
+.tag{display:inline-block;font-family:'Mulish',sans-serif;font-size:11px;font-weight:800;
+  letter-spacing:.18em;text-transform:uppercase;padding:6px 13px;border-radius:2px;}
+
+/* POST 1 — Welcome / Brand */
+.p1{background:#1e0d08;}
+.p1 .bg{position:absolute;inset:0;
+  background:radial-gradient(ellipse at 30% 40%, #3d1a10 0%, #1e0d08 60%),
+  repeating-linear-gradient(135deg,transparent 0 40px,rgba(255,240,210,.012) 40px 41px);}
+.p1 .frame{position:absolute;inset:28px;border:1px solid rgba(206,161,78,.22);border-radius:2px;}
+.p1 .frame2{position:absolute;inset:34px;border:1px solid rgba(206,161,78,.1);border-radius:2px;}
+.p1 .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;}
+.p1 h2{font-family:'Cinzel',serif;font-size:34px;font-weight:700;color:#f3e6cf;letter-spacing:.08em;text-align:center;line-height:1.1;}
+.p1 .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:#cfa14e;margin-top:10px;}
+.p1 .rule{width:60px;height:1px;background:#cfa14e;margin:18px auto;}
+.p1 .tagline{font-family:'Mulish',sans-serif;font-size:12px;font-weight:600;letter-spacing:.22em;
+  text-transform:uppercase;color:rgba(243,230,207,.5);text-align:center;line-height:1.8;}
+.p1 .url{position:absolute;bottom:38px;left:0;right:0;text-align:center;
+  font-family:'Mulish',sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;color:#cfa14e;}
+.p1 .year{position:absolute;top:42px;left:0;right:0;text-align:center;
+  font-family:'Cinzel',serif;font-size:11px;letter-spacing:.4em;color:rgba(206,161,78,.4);}
+
+/* POST 2 — Upcoming / Destaque evento */
+.p2{background:#0e0a05;}
+.p2 .photo{position:absolute;inset:0;background:linear-gradient(160deg,#3b1810 0%,#1a0d08 50%,#0e0a05 100%);}
+.p2 .photo-img{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;opacity:.45;mix-blend-mode:luminosity;}
+.p2 .overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,10,5,.2) 0%,rgba(14,10,5,.0) 35%,rgba(14,10,5,.85) 70%,#0e0a05 100%);}
+.p2 .top{position:absolute;top:24px;left:24px;right:24px;display:flex;justify-content:space-between;align-items:flex-start;}
+.p2 .date-chip{background:rgba(255,245,225,.95);border-radius:4px;padding:8px 14px;text-align:center;line-height:1;}
+.p2 .date-chip .d{font-family:'Cinzel',serif;font-size:28px;font-weight:700;color:#5e1f25;}
+.p2 .date-chip .m{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#8a5a30;margin-top:3px;}
+.p2 .bottom{position:absolute;bottom:0;left:0;right:0;padding:0 28px 28px;}
+.p2 .type-tag{background:rgba(255,245,225,.18);color:#f3e6cf;border:1px solid rgba(255,245,225,.2);backdrop-filter:blur(4px);}
+.p2 h3{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;color:#f3e6cf;line-height:1.05;margin:10px 0 4px;}
+.p2 .theme{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:rgba(243,230,207,.75);}
+.p2 .meta{display:flex;gap:16px;margin-top:14px;font-size:12px;font-weight:700;color:rgba(243,230,207,.6);letter-spacing:.04em;}
+.p2 .logo-line{position:absolute;top:24px;right:24px;display:flex;align-items:center;gap:8px;}
+.p2 .logo-txt{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.08em;color:rgba(243,230,207,.7);}
+
+/* POST 3 — "Este fim de semana" */
+.p3{background:#f5edd8;}
+.p3 .bg{position:absolute;inset:0;
+  background:linear-gradient(135deg,#f7efe0 0%,#edddc5 100%);
+}
+.p3 .noise{position:absolute;inset:0;opacity:.4;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");}
+.p3 .top-bar{position:absolute;top:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#5e1f25,#8a2e35,#5e1f25);}
+.p3 .eyebrow{position:absolute;top:28px;left:32px;right:32px;display:flex;align-items:center;gap:10px;
+  font-family:'Mulish',sans-serif;font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#5e1f25;}
+.p3 .eyebrow::after{content:"";flex:1;height:1px;background:#5e1f25;opacity:.3;}
+.p3 .title{position:absolute;top:58px;left:32px;font-family:'Cinzel',serif;font-size:28px;font-weight:700;color:#1e0d08;letter-spacing:.04em;}
+.p3 .events-list{position:absolute;top:110px;left:32px;right:32px;display:flex;flex-direction:column;gap:12px;}
+.p3 .ev-row{display:flex;gap:14px;align-items:flex-start;padding:14px 16px;
+  background:rgba(255,252,245,.75);border:1px solid rgba(94,31,37,.12);border-radius:4px;
+  backdrop-filter:blur(4px);}
+.p3 .ev-date{font-family:'Cinzel',serif;font-size:22px;font-weight:700;color:#5e1f25;line-height:1;flex-shrink:0;width:36px;text-align:center;}
+.p3 .ev-month{font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#9a7050;margin-top:2px;text-align:center;}
+.p3 .ev-info{flex:1;}
+.p3 .ev-name{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:#1e0d08;line-height:1.1;}
+.p3 .ev-place{font-size:11.5px;font-weight:600;color:#7a5535;margin-top:2px;}
+.p3 .bottom{position:absolute;bottom:22px;left:32px;right:32px;display:flex;justify-content:space-between;align-items:center;}
+.p3 .bottom-tag{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.18em;color:rgba(30,13,8,.4);text-transform:uppercase;}
+
+/* POST 4 — Mapa / Portugal */
+.p4{background:#1a1008;}
+.p4 .bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 50%,#2a1a0e 0%,#1a1008 70%);}
+.p4 .eyebrow{position:absolute;top:34px;left:0;right:0;text-align:center;
+  font-family:'Mulish',sans-serif;font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:#cfa14e;}
+.p4 .title{position:absolute;top:56px;left:0;right:0;text-align:center;
+  font-family:'Cormorant Garamond',serif;font-size:38px;font-weight:600;font-style:italic;color:#f3e6cf;line-height:1;}
+.p4 .map-area{position:absolute;top:108px;left:40px;right:40px;bottom:90px;}
+.p4 .bottom{position:absolute;bottom:28px;left:0;right:0;text-align:center;
+  font-family:'Mulish',sans-serif;font-size:11px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:rgba(207,161,78,.6);}
+
+/* POST 5 — Tipos de evento */
+.p5{background:#f7efe0;}
+.p5 .stripe{position:absolute;top:0;left:0;right:0;height:5px;background:#5e1f25;}
+.p5 .header{position:absolute;top:30px;left:32px;right:32px;}
+.p5 .h-eye{font-family:'Mulish',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;
+  text-transform:uppercase;color:#5e1f25;display:flex;align-items:center;gap:8px;}
+.p5 .h-eye::before{content:"";width:20px;height:1.5px;background:#5e1f25;display:inline-block;}
+.p5 h2{font-family:'Cinzel',serif;font-size:26px;font-weight:700;color:#1e0d08;margin-top:8px;letter-spacing:.02em;}
+.p5 .types-grid{position:absolute;top:118px;left:28px;right:28px;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.p5 .type-card{padding:14px 16px;border-radius:4px;border:1px solid;}
+.p5 .type-name{font-family:'Cinzel',serif;font-size:15px;font-weight:700;letter-spacing:.03em;}
+.p5 .type-desc{font-size:11.5px;font-weight:600;margin-top:4px;line-height:1.4;}
+.p5 .bottom{position:absolute;bottom:24px;left:32px;right:32px;display:flex;justify-content:space-between;align-items:center;}
+.p5 .total{font-family:'Cinzel',serif;font-size:36px;font-weight:700;color:#5e1f25;}
+.p5 .total-lbl{font-size:11px;font-weight:700;letter-spacing:.08em;color:#8a5a30;margin-top:2px;text-transform:uppercase;}
+
+/* POST 6 — Grande destaque Óbidos */
+.p6{background:#0a0806;}
+.p6 .bg{position:absolute;inset:0;background:linear-gradient(145deg,#2d1008 0%,#0a0806 55%);}
+.p6 .accent-line{position:absolute;top:0;left:0;width:4px;height:100%;background:linear-gradient(180deg,#cfa14e,#5e1f25,transparent);}
+.p6 .content{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:36px 36px 36px 44px;}
+.p6 .big-number{font-family:'Cinzel',serif;font-size:120px;font-weight:700;color:rgba(94,31,37,.18);line-height:1;position:absolute;top:30px;right:20px;}
+.p6 .eye{font-family:'Mulish',sans-serif;font-size:10px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:#cfa14e;margin-bottom:12px;}
+.p6 h3{font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:600;color:#f3e6cf;line-height:1.02;margin-bottom:8px;}
+.p6 .theme{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:21px;color:rgba(243,230,207,.7);margin-bottom:20px;}
+.p6 .pills{display:flex;gap:8px;flex-wrap:wrap;}
+.p6 .pill{font-size:11px;font-weight:700;letter-spacing:.06em;padding:6px 13px;border-radius:2px;border:1px solid rgba(207,161,78,.3);color:rgba(207,161,78,.8);}
+.p6 .dates{font-size:13px;font-weight:700;color:rgba(243,230,207,.5);margin-top:16px;letter-spacing:.04em;}
+
+/* POST 7 — Região spotlight */
+.p7{background:#f5edd8;}
+.p7 .bg{position:absolute;inset:0;background:linear-gradient(160deg,#f0e5cc 0%,#e8d8b8 100%);}
+.p7 .side-bar{position:absolute;top:0;bottom:0;left:0;width:120px;background:linear-gradient(180deg,#5e1f25,#3d1015);}
+.p7 .side-content{position:absolute;top:0;bottom:0;left:0;width:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;}
+.p7 .side-label{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.2em;color:rgba(243,230,207,.6);text-transform:uppercase;writing-mode:vertical-rl;transform:rotate(180deg);}
+.p7 .side-n{font-family:'Cinzel',serif;font-size:48px;font-weight:700;color:#cfa14e;line-height:1;}
+.p7 .side-events{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:rgba(243,230,207,.5);}
+.p7 .main{position:absolute;top:0;left:120px;right:0;bottom:0;padding:36px 30px;}
+.p7 .region-name{font-family:'Cinzel',serif;font-size:32px;font-weight:700;color:#1e0d08;letter-spacing:.04em;line-height:1;}
+.p7 .region-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px;color:#7a5535;margin-top:6px;}
+.p7 .ev-list{margin-top:22px;display:flex;flex-direction:column;gap:9px;}
+.p7 .ev-item{display:flex;align-items:baseline;gap:10px;}
+.p7 .ev-dot{width:5px;height:5px;border-radius:50%;background:#5e1f25;flex-shrink:0;margin-bottom:2px;}
+.p7 .ev-title{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:#1e0d08;}
+.p7 .ev-date{font-size:11px;font-weight:700;color:#9a7050;margin-left:auto;white-space:nowrap;}
+.p7 .bottom-bar{position:absolute;bottom:0;left:120px;right:0;height:5px;background:#5e1f25;}
+
+/* POST 8 — Estatísticas / Números */
+.p8{background:#1e0d08;}
+.p8 .bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 80%,#3d1810 0%,#1e0d08 60%);}
+.p8 .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px;}
+.p8 .pre{font-family:'Mulish',sans-serif;font-size:10px;font-weight:800;letter-spacing:.28em;text-transform:uppercase;color:#cfa14e;margin-bottom:20px;}
+.p8 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,240,210,.08);border:1px solid rgba(255,240,210,.08);border-radius:4px;overflow:hidden;width:100%;}
+.p8 .stat{background:#1e0d08;padding:28px 24px;text-align:center;}
+.p8 .stat-n{font-family:'Cinzel',serif;font-size:52px;font-weight:700;color:#f3e6cf;line-height:1;}
+.p8 .stat-plus{color:#cfa14e;}
+.p8 .stat-l{font-size:11.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(243,230,207,.45);margin-top:6px;}
+.p8 .bottom{margin-top:28px;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:rgba(243,230,207,.6);text-align:center;}
+
+/* POST 9 — CTA / Link bio */
+.p9{background:#5e1f25;}
+.p9 .bg{position:absolute;inset:0;background:linear-gradient(145deg,#7a2a32 0%,#5e1f25 40%,#3d1015 100%);}
+.p9 .noise{position:absolute;inset:0;opacity:.3;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");}
+.p9 .frame{position:absolute;inset:22px;border:1px solid rgba(243,230,207,.2);border-radius:2px;pointer-events:none;}
+.p9 .center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;text-align:center;padding:40px;}
+.p9 .pre{font-family:'Mulish',sans-serif;font-size:10px;font-weight:800;letter-spacing:.3em;text-transform:uppercase;color:rgba(243,230,207,.55);margin-bottom:18px;}
+.p9 h3{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:42px;font-weight:600;color:#f3e6cf;line-height:1.1;}
+.p9 .rule{width:50px;height:1px;background:rgba(207,161,78,.5);margin:22px auto;}
+.p9 .url-box{background:rgba(243,230,207,.12);border:1px solid rgba(243,230,207,.25);border-radius:3px;
+  padding:13px 24px;font-family:'Cinzel',serif;font-size:14px;font-weight:600;letter-spacing:.06em;color:#f3e6cf;margin-top:4px;}
+.p9 .sub{font-size:12px;font-weight:600;letter-spacing:.06em;color:rgba(243,230,207,.5);margin-top:18px;}
+</style>
+</head>
+<body>
+<h1>FEIRAS MEDIEVAIS · INSTAGRAM POSTS</h1>
+<p class="subtitle">9 posts prontos para a grelha — faz screenshot de cada um (480×480 px) ou abre em browser e imprime</p>
+
+<div class="grid">
+
+  <!-- POST 1: Brand / Welcome -->
+  <div>
+  <div class="post p1">
+    <div class="bg"></div>
+    <div class="frame"></div>
+    <div class="frame2"></div>
+    <div class="year">· PORTUGAL · 2026 ·</div>
+    <div class="center">
+      <svg width="56" height="62" viewBox="0 0 40 44" fill="none" class="crest-svg">
+        <path d="M20 2 36 7v15c0 11-8 17-16 20C12 39 4 33 4 22V7L20 2Z" fill="#5e1f25" stroke="#cfa14e" stroke-width="1.5"/>
+        <path d="M20 11v20M11.5 19.5h17" stroke="#f3e6cf" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="20" cy="19.5" r="3.1" fill="#cfa14e" stroke="#f3e6cf" stroke-width="1.2"/>
+      </svg>
+      <div style="height:18px"></div>
+      <div class="p1 sub" style="position:static">Bem-vindos a</div>
+      <h2>FEIRAS<br/>MEDIEVAIS</h2>
+      <div class="rule"></div>
+      <div class="tagline">Calendário oficial · Portugal<br/>Mercados Romanos · Recriações Históricas<br/>Torneios · Feiras Templáricas</div>
+    </div>
+    <div class="url">feirasmedievais.pt</div>
+  </div>
+  <div class="post-label">POST 1 — Boas-vindas</div>
+  <div class="hint">Caption: "O teu guia para 85 eventos históricos em 2026 🏰 Link na bio ↗"</div>
+  </div>
+
+  <!-- POST 2: Destaque evento (Redondo Medieval) -->
+  <div>
+  <div class="post p2">
+    <div class="photo" style="background:linear-gradient(160deg,#5c2010 0%,#1a0d08 100%)">
+      <!-- Placeholder cor — em produção substituir por foto do evento -->
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,transparent 0 60px,rgba(255,220,150,.03) 60px 61px)"></div>
+    </div>
+    <div class="overlay"></div>
+    <div class="top">
+      <div class="date-chip">
+        <div class="d">29</div>
+        <div class="m">Mai</div>
+      </div>
+      <div class="logo-line">
+        <svg width="22" height="24" viewBox="0 0 40 44" fill="none">
+          <path d="M20 2 36 7v15c0 11-8 17-16 20C12 39 4 33 4 22V7L20 2Z" fill="#5e1f25" stroke="#cfa14e" stroke-width="1.5"/>
+          <path d="M20 11v20M11.5 19.5h17" stroke="#f3e6cf" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="20" cy="19.5" r="3" fill="#cfa14e" stroke="#f3e6cf" stroke-width="1.2"/>
+        </svg>
+        <div class="logo-txt">FEIRAS<br/>MEDIEVAIS</div>
+      </div>
+    </div>
+    <div class="bottom">
+      <span class="tag type-tag">Medieval</span>
+      <h3>Redondo Medieval</h3>
+      <div class="theme">Nas Cortes de D. Dinis</div>
+      <div class="meta">
+        <span>📅 29 – 31 Maio</span>
+        <span>📍 Redondo, Alentejo</span>
+      </div>
+    </div>
+  </div>
+  <div class="post-label">POST 2 — Destaque evento</div>
+  <div class="hint">Caption: "Este fim de semana em Redondo! 🗡️ Cortes, cavaleiros e muito mais 👑"</div>
+  </div>
+
+  <!-- POST 3: Este fim de semana -->
+  <div>
+  <div class="post p3">
+    <div class="bg"></div>
+    <div class="noise"></div>
+    <div class="top-bar"></div>
+    <div class="eyebrow">Este fim de semana</div>
+    <div class="title">Agenda 30–31 Maio</div>
+    <div class="events-list">
+      <div class="ev-row">
+        <div style="text-align:center">
+          <div class="ev-date">30</div>
+          <div class="ev-month">Mai</div>
+        </div>
+        <div class="ev-info">
+          <div class="ev-name">Dume Sueva</div>
+          <div class="ev-place">📍 Braga</div>
+        </div>
+      </div>
+      <div class="ev-row">
+        <div style="text-align:center">
+          <div class="ev-date">30</div>
+          <div class="ev-month">Mai</div>
+        </div>
+        <div class="ev-info">
+          <div class="ev-name">Feira Medieval de Ansiães</div>
+          <div class="ev-place">📍 Carrazeda de Ansiães, Norte</div>
+        </div>
+      </div>
+      <div class="ev-row">
+        <div style="text-align:center">
+          <div class="ev-date">31</div>
+          <div class="ev-month">Mai</div>
+        </div>
+        <div class="ev-info">
+          <div class="ev-name">S. Paio de Figueiredo</div>
+          <div class="ev-place">📍 Guimarães, Norte</div>
+        </div>
+      </div>
+      <div class="ev-row" style="background:rgba(94,31,37,.07);border-color:rgba(94,31,37,.2)">
+        <div style="text-align:center">
+          <div class="ev-date" style="color:#8a5a30">+4</div>
+          <div class="ev-month">mais</div>
+        </div>
+        <div class="ev-info">
+          <div class="ev-name" style="color:#5e1f25">Ver calendário completo</div>
+          <div class="ev-place">feirasmedievais.pt</div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <svg width="22" height="24" viewBox="0 0 40 44" fill="none">
+        <path d="M20 2 36 7v15c0 11-8 17-16 20C12 39 4 33 4 22V7L20 2Z" fill="#5e1f25" stroke="#5e1f25" stroke-width="1.5"/>
+        <path d="M20 11v20M11.5 19.5h17" stroke="#f3e6cf" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="20" cy="19.5" r="3" fill="#cfa14e" stroke="#f3e6cf" stroke-width="1.2"/>
+      </svg>
+      <span class="bottom-tag">feirasmedievais.pt</span>
+    </div>
+  </div>
+  <div class="post-label">POST 3 — Agenda semanal</div>
+  <div class="hint">Caption: "O teu fim de semana histórico começa aqui 🏰 Qual vais escolher?"</div>
+  </div>
+
+  <!-- POST 4: Mapa Portugal -->
+  <div>
+  <div class="post p4">
+    <div class="bg"></div>
+    <div class="eyebrow">85 eventos · 6 regiões</div>
+    <div class="title">Portugal medieval,<br/><em style="font-style:normal;color:#cfa14e">de norte a sul</em></div>
+    <div class="map-area">
+      <!-- Portugal SVG simplificado -->
+      <svg viewBox="0 0 200 280" style="width:100%;height:100%;opacity:.9">
+        <defs>
+          <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+        </defs>
+        <!-- Portugal mainland simplified shape -->
+        <path d="M60,15 L155,15 L165,30 L170,55 L165,90 L175,120 L170,155 L160,180 L150,210 L140,240 L120,260 L100,265 L80,255 L65,235 L55,205 L45,175 L40,145 L45,115 L40,85 L45,60 L50,35 Z"
+              fill="rgba(94,31,37,.15)" stroke="rgba(207,161,78,.4)" stroke-width="1.5"/>
+        <!-- Region pins -->
+        <g filter="url(#glow)">
+          <!-- Norte -->
+          <circle cx="85" cy="55" r="9" fill="#5e1f25" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="85" y="59" text-anchor="middle" font-family="Cinzel,serif" font-size="8" font-weight="700" fill="#f3e6cf">22</text>
+          <!-- Centro -->
+          <circle cx="100" cy="120" r="9" fill="#5e1f25" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="100" y="124" text-anchor="middle" font-family="Cinzel,serif" font-size="8" font-weight="700" fill="#f3e6cf">26</text>
+          <!-- Lisboa -->
+          <circle cx="72" cy="175" r="8" fill="#7a2a32" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="72" y="179" text-anchor="middle" font-family="Cinzel,serif" font-size="7" font-weight="700" fill="#f3e6cf">12</text>
+          <!-- Alentejo -->
+          <circle cx="108" cy="205" r="8" fill="#5e1f25" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="108" y="209" text-anchor="middle" font-family="Cinzel,serif" font-size="7" font-weight="700" fill="#f3e6cf">9</text>
+          <!-- Algarve -->
+          <circle cx="100" cy="245" r="7" fill="#5e1f25" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="100" y="249" text-anchor="middle" font-family="Cinzel,serif" font-size="7" font-weight="700" fill="#f3e6cf">6</text>
+        </g>
+        <!-- Labels -->
+        <text x="110" y="58" font-family="Mulish,sans-serif" font-size="9" font-weight="700" fill="rgba(243,230,207,.5)" letter-spacing="1">NORTE</text>
+        <text x="115" y="123" font-family="Mulish,sans-serif" font-size="9" font-weight="700" fill="rgba(243,230,207,.5)" letter-spacing="1">CENTRO</text>
+        <text x="46" y="172" font-family="Mulish,sans-serif" font-size="9" font-weight="700" fill="rgba(243,230,207,.5)" letter-spacing="1">LX</text>
+        <text x="122" y="208" font-family="Mulish,sans-serif" font-size="9" font-weight="700" fill="rgba(243,230,207,.5)" letter-spacing=".5">ALENTEJO</text>
+        <text x="114" y="248" font-family="Mulish,sans-serif" font-size="9" font-weight="700" fill="rgba(243,230,207,.5)" letter-spacing=".5">ALGARVE</text>
+      </svg>
+    </div>
+    <div class="bottom">ver mapa interactivo em feirasmedievais.pt</div>
+  </div>
+  <div class="post-label">POST 4 — Mapa Portugal</div>
+  <div class="hint">Caption: "De Braga ao Algarve — há sempre uma feira perto de ti 🗺️ Explora o mapa no link da bio"</div>
+  </div>
+
+  <!-- POST 5: Tipos de evento -->
+  <div>
+  <div class="post p5">
+    <div class="stripe"></div>
+    <div class="header">
+      <div class="h-eye">Guia dos eventos</div>
+      <h2>Tipos de Feira</h2>
+    </div>
+    <div class="types-grid">
+      <div class="type-card" style="background:rgba(94,31,37,.08);border-color:rgba(94,31,37,.2)">
+        <div class="type-name" style="color:#5e1f25">⚔️ Medieval</div>
+        <div class="type-desc" style="color:#7a3a20">Cavaleiros, mercadores e vida da Idade Média</div>
+      </div>
+      <div class="type-card" style="background:rgba(160,90,30,.08);border-color:rgba(160,90,30,.2)">
+        <div class="type-name" style="color:#8a4a18">🏛️ Romana</div>
+        <div class="type-desc" style="color:#7a4a20">Legionários e o Império em Portugal</div>
+      </div>
+      <div class="type-card" style="background:rgba(94,31,37,.1);border-color:rgba(94,31,37,.25)">
+        <div class="type-name" style="color:#6e1e20">✝️ Templária</div>
+        <div class="type-desc" style="color:#7a2a25">A Ordem do Templo e a fundação de Portugal</div>
+      </div>
+      <div class="type-card" style="background:rgba(160,120,30,.08);border-color:rgba(160,120,30,.2)">
+        <div class="type-name" style="color:#7a5a18">🏹 Torneio</div>
+        <div class="type-desc" style="color:#7a5a20">Justas, arco e besta, combates equestres</div>
+      </div>
+      <div class="type-card" style="background:rgba(50,110,80,.08);border-color:rgba(50,110,80,.2)">
+        <div class="type-name" style="color:#2a6040">🪔 Mercado</div>
+        <div class="type-desc" style="color:#3a6040">Ofícios, artesanato e produtos regionais</div>
+      </div>
+      <div class="type-card" style="background:rgba(80,50,140,.07);border-color:rgba(80,50,140,.18)">
+        <div class="type-name" style="color:#4a3080">⛵ Quinhentista</div>
+        <div class="type-desc" style="color:#5a3880">Renascimento e Descobrimentos</div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div>
+        <div class="total">85</div>
+        <div class="total-lbl">eventos em 2026</div>
+      </div>
+      <svg width="32" height="36" viewBox="0 0 40 44" fill="none">
+        <path d="M20 2 36 7v15c0 11-8 17-16 20C12 39 4 33 4 22V7L20 2Z" fill="#5e1f25" stroke="#5e1f25"/>
+        <path d="M20 11v20M11.5 19.5h17" stroke="#f3e6cf" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="20" cy="19.5" r="3" fill="#cfa14e" stroke="#f3e6cf" stroke-width="1.2"/>
+      </svg>
+    </div>
+  </div>
+  <div class="post-label">POST 5 — Tipos de evento</div>
+  <div class="hint">Caption: "Qual é o teu tipo favorito? 👇 Conta-nos nos comentários!"</div>
+  </div>
+
+  <!-- POST 6: Grande evento — Mercado de Óbidos -->
+  <div>
+  <div class="post p6">
+    <div class="bg"></div>
+    <div class="accent-line"></div>
+    <div class="big-number">10</div>
+    <div class="content">
+      <div class="eye">Mercado · 10 dias · Óbidos</div>
+      <h3>Mercado<br/>Medieval<br/>de Óbidos</h3>
+      <div class="theme">O maior mercado medieval de Portugal</div>
+      <div class="pills">
+        <span class="pill">16 – 26 Julho</span>
+        <span class="pill">Centro</span>
+        <span class="pill">Mercado</span>
+      </div>
+      <div class="dates">📅 10 dias de história e animação</div>
+    </div>
+  </div>
+  <div class="post-label">POST 6 — Destaque Óbidos</div>
+  <div class="hint">Caption: "10 dias de magia medieval em Óbidos 🏰 O maior mercado medieval do país está de volta!"</div>
+  </div>
+
+  <!-- POST 7: Região Norte -->
+  <div>
+  <div class="post p7">
+    <div class="bg"></div>
+    <div class="side-bar"></div>
+    <div class="side-content">
+      <svg width="28" height="32" viewBox="0 0 40 44" fill="none">
+        <path d="M20 2 36 7v15c0 11-8 17-16 20C12 39 4 33 4 22V7L20 2Z" fill="rgba(255,250,240,.12)" stroke="rgba(207,161,78,.6)" stroke-width="1.5"/>
+        <path d="M20 11v20M11.5 19.5h17" stroke="#f3e6cf" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="20" cy="19.5" r="3" fill="#cfa14e" stroke="#f3e6cf" stroke-width="1.2"/>
+      </svg>
+      <div class="side-n">22</div>
+      <div class="side-events">eventos</div>
+      <div class="side-label">NORTE</div>
+    </div>
+    <div class="main">
+      <div class="region-name">Região<br/>Norte</div>
+      <div class="region-sub">Guimarães · Braga · Gaia</div>
+      <div class="ev-list">
+        <div class="ev-item">
+          <div class="ev-dot"></div>
+          <div class="ev-title">Feira Afonsina de Guimarães</div>
+          <div class="ev-date">11–14 Jun</div>
+        </div>
+        <div class="ev-item">
+          <div class="ev-dot"></div>
+          <div class="ev-title">Viagem Medieval de Sta. Maria da Feira</div>
+          <div class="ev-date">29 Jul–9 Ago</div>
+        </div>
+        <div class="ev-item">
+          <div class="ev-dot"></div>
+          <div class="ev-title">Festa da História de Cerveira</div>
+          <div class="ev-date">13–16 Ago</div>
+        </div>
+        <div class="ev-item">
+          <div class="ev-dot"></div>
+          <div class="ev-title">Torneio Medieval de Ansiães</div>
+          <div class="ev-date">30 Mai–1 Jun</div>
+        </div>
+        <div class="ev-item" style="opacity:.5">
+          <div class="ev-dot" style="background:#9a7050"></div>
+          <div class="ev-title" style="color:#7a5535;font-size:14px">+ 17 eventos na região Norte</div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-bar"></div>
+  </div>
+  <div class="post-label">POST 7 — Região Norte</div>
+  <div class="hint">Caption: "Berço de Portugal 🏰 22 eventos históricos na Região Norte em 2026!"</div>
+  </div>
+
+  <!-- POST 8: Estatísticas -->
+  <div>
+  <div class="post p8">
+    <div class="bg"></div>
+    <div class="center">
+      <div class="pre">Feiras Medievais Portugal · 2026</div>
+      <div class="stats-grid">
+        <div class="stat">
+          <div class="stat-n">85<span class="stat-plus">+</span></div>
+          <div class="stat-l">Eventos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">6</div>
+          <div class="stat-l">Regiões</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">18</div>
+          <div class="stat-l">Distritos</div>
+        </div>
+        <div class="stat">
+          <div class="stat-n">7</div>
+          <div class="stat-l">Tipos</div>
+        </div>
+      </div>
+      <div class="bottom">De Maio a Novembro, de norte a sul.</div>
+    </div>
+  </div>
+  <div class="post-label">POST 8 — Números do ano</div>
+  <div class="hint">Caption: "2026 promete ser um ano épico! 📜 Qual é o teu número favorito destes? 👇"</div>
+  </div>
+
+  <!-- POST 9: CTA / Link Bio -->
+  <div>
+  <div class="post p9">
+    <div class="bg"></div>
+    <div class="noise"></div>
+    <div class="frame"></div>
+    <div class="center">
+      <div class="pre">O calendário completo está online</div>
+      <h3>Encontra a feira<br/>mais perto<br/>de ti</h3>
+      <div class="rule"></div>
+      <div class="url-box">feirasmedievais.pt</div>
+      <div class="sub">85 eventos · Mapa interactivo · PT / EN</div>
+    </div>
+  </div>
+  <div class="post-label">POST 9 — Chamada à acção</div>
+  <div class="hint">Caption: "Tudo o que precisas de saber sobre as feiras medievais de Portugal está no link da bio 🔗"</div>
+  </div>
+
+</div>
+
+<div style="max-width:960px;margin:60px auto 0;padding:32px;background:#12090400;border:1px solid #3a2510;border-radius:8px;">
+  <h2 style="color:#cfa14e;font-family:'Cinzel',serif;font-size:18px;letter-spacing:.06em;margin-bottom:20px;">📋 BIO SUGERIDA PARA O PERFIL</h2>
+  <div style="background:#1a1008;border-radius:6px;padding:20px 24px;font-family:monospace;font-size:14px;color:#f3e6cf;line-height:1.8;white-space:pre-wrap;">🏰 Feiras Medievais · Portugal
+📜 Calendário oficial 2026 — 85 eventos
+⚔️ Medieval · Romano · Templário · Torneio
+🗺️ De norte a sul, do Minho ao Algarve
+🔗 feirasmedievais.pt</div>
+  <p style="color:#8a7055;font-size:12px;margin-top:12px;">Username sugerido: <strong style="color:#cfa14e">@feirasmedievais.pt</strong> ou <strong style="color:#cfa14e">@feirasmedievaisportugal</strong></p>
+</div>
+
+</body>
+</html>
