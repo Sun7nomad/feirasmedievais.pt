@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8"/>
+<title>Instagram Stories · Feiras Medievais</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Mulish:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:#0e0906;font-family:'Mulish',sans-serif;padding:40px;}
+h1{color:#f3e6cf;font-family:'Cinzel',serif;font-size:20px;letter-spacing:.1em;text-align:center;margin-bottom:6px;}
+.subtitle{color:#8a7055;font-size:12px;text-align:center;margin-bottom:40px;}
+.row{display:flex;gap:28px;justify-content:center;flex-wrap:wrap;}
+.story-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;}
+.story{width:270px;height:480px;position:relative;overflow:hidden;border-radius:16px;flex-shrink:0;}
+.story-label{color:#8a7055;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;text-align:center;}
+.hint{color:#4a3520;font-size:11px;text-align:center;max-width:270px;}
+
+/* STORY 1 — Evento da semana */
+.s1{background:#0e0806;}
+.s1 .bg{position:absolute;inset:0;background:linear-gradient(180deg,#1a0d08 0%,#0e0806 60%);}
+.s1 .top{position:absolute;top:0;left:0;right:0;padding:28px 24px 0;display:flex;justify-content:space-between;align-items:center;}
+.s1 .brand{display:flex;align-items:center;gap:8px;}
+.s1 .brand-txt{font-family:'Cinzel',serif;font-size:10px;font-weight:600;letter-spacing:.1em;color:rgba(243,230,207,.7);}
+.s1 .date-pill{background:rgba(207,161,78,.15);border:1px solid rgba(207,161,78,.3);border-radius:20px;
+  padding:5px 12px;font-size:10px;font-weight:800;letter-spacing:.1em;color:#cfa14e;text-transform:uppercase;}
+.s1 .eye{position:absolute;top:110px;left:24px;right:24px;
+  font-family:'Mulish',sans-serif;font-size:10px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:rgba(207,161,78,.7);}
+.s1 h2{position:absolute;top:134px;left:24px;right:24px;
+  font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:600;color:#f3e6cf;line-height:1.05;}
+.s1 .theme{position:absolute;top:262px;left:24px;right:24px;
+  font-family:'Cormorant Garamond',serif;font-style:italic;font-size:20px;color:rgba(243,230,207,.7);}
+.s1 .card{position:absolute;bottom:0;left:0;right:0;padding:24px;
+  background:linear-gradient(0deg,rgba(14,8,6,.95) 0%,transparent 100%);}
+.s1 .meta-row{display:flex;gap:14px;margin-bottom:12px;}
+.s1 .meta-chip{background:rgba(255,245,225,.1);border:1px solid rgba(255,245,225,.15);border-radius:4px;
+  padding:8px 13px;font-size:11px;font-weight:700;color:rgba(243,230,207,.8);}
+.s1 .cta{background:#5e1f25;border-radius:6px;padding:14px;text-align:center;
+  font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:.06em;color:#f3e6cf;}
+
+/* STORY 2 — Contagem decrescente */
+.s2{background:#f5edd8;}
+.s2 .bg{position:absolute;inset:0;background:linear-gradient(160deg,#f0e5cc 0%,#e5d5b0 100%);}
+.s2 .top-bar{position:absolute;top:0;left:0;right:0;height:5px;background:#5e1f25;}
+.s2 .brand{position:absolute;top:22px;left:0;right:0;display:flex;align-items:center;justify-content:center;gap:8px;}
+.s2 .brand-txt{font-family:'Cinzel',serif;font-size:11px;font-weight:600;letter-spacing:.12em;color:rgba(30,13,8,.6);}
+.s2 .center{position:absolute;top:90px;left:24px;right:24px;}
+.s2 .eye2{font-family:'Mulish',sans-serif;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:#5e1f25;margin-bottom:10px;}
+.s2 h2{font-family:'Cinzel',serif;font-size:32px;font-weight:700;color:#1e0d08;letter-spacing:.03em;line-height:1.1;margin-bottom:6px;}
+.s2 .sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px;color:#7a5535;}
+.s2 .countdown{position:absolute;top:260px;left:24px;right:24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+.s2 .cd-block{background:rgba(94,31,37,.08);border:1px solid rgba(94,31,37,.15);border-radius:6px;padding:14px 8px;text-align:center;}
+.s2 .cd-n{font-family:'Cinzel',serif;font-size:36px;font-weight:700;color:#5e1f25;line-height:1;}
+.s2 .cd-l{font-size:9px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#9a7050;margin-top:4px;}
+.s2 .bottom-card{position:absolute;bottom:28px;left:24px;right:24px;
+  background:#5e1f25;border-radius:8px;padding:16px 20px;display:flex;align-items:center;gap:12px;}
+.s2 .bc-txt{font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:.04em;color:#f3e6cf;}
+.s2 .bc-sub{font-size:11px;color:rgba(243,230,207,.6);margin-top:2px;}
+
+/* STORY 3 — Mapa/Swipe up */
+.s3{background:#1a1008;}
+.s3 .bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,#2d1a0e 0%,#1a1008 65%);}
+.s3 .top{position:absolute;top:28px;left:24px;right:24px;text-align:center;}
+.s3 .eye3{font-family:'Mulish',sans-serif;font-size:10px;font-weight:800;letter-spacing:.25em;text-transform:uppercase;color:#cfa14e;margin-bottom:8px;}
+.s3 h2{font-family:'Cormorant Garamond',serif;font-size:34px;font-weight:600;color:#f3e6cf;line-height:1.1;}
+.s3 .map-preview{position:absolute;top:130px;left:40px;right:40px;bottom:160px;display:flex;align-items:center;justify-content:center;}
+.s3 .swipe-area{position:absolute;bottom:0;left:0;right:0;padding:20px 24px 36px;text-align:center;
+  background:linear-gradient(0deg,rgba(26,16,8,.98) 0%,transparent 100%);}
+.s3 .swipe-txt{font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;color:rgba(207,161,78,.7);margin-bottom:10px;}
+.s3 .swipe-btn{background:rgba(207,161,78,.15);border:1.5px solid rgba(207,161,78,.4);border-radius:30px;
+  padding:12px 28px;font-family:'Cinzel',serif;font-size:13px;font-weight:600;letter-spacing:.06em;
+  color:#cfa14e;display:inline-block;}
+.s3 .arrow-up{font-size:20px;display:block;margin-bottom:6px;}
+</style>
+</head>
+<body>
+<h1>FEIRAS MEDIEVAIS · INSTAGRAM STORIES</h1>
+<p class="subtitle">3 templates de Story (270×480 preview — proporção 9:16 em produção: 1080×1920 px)</p>
+
+<div class="row">
+
+  <!-- STORY 1: Evento da semana -->
+  <div class="story-wrap">
+  <div class="story s1">
+    <div class="bg"></div>
+    <!-- decorative lines -->
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;
+      background:repeating-linear-gradient(135deg,transparent 0 80px,rgba(255,220,150,.015) 80px 81px);pointer-events:none;"></div>
+    <div class="top">
+      <div class="brand">
+        <svg width="18" height="20" viewBox="0 0 40 44" fill="none">
+          <path d="M20 2 36 7v15c0 11-8 17-16 20C12 39 4 33 4 22V7L20 2Z" fill="#5e1f25" stroke="#cfa14e" stroke-width="1.5"/>
+          <path d="M20 11v20M11.5 19.5h17" stroke="#f3e6cf" stroke-width="2.2" stroke-linecap="round"/>
+          <circle cx="20" cy="19.5" r="3" fill="#cfa14e" stroke="#f3e6cf" stroke-width="1.2"/>
+        </svg>
+        <div class="brand-txt">FEIRAS MEDIEVAIS</div>
+      </div>
+      <div class="date-pill">Este fim de semana</div>
+    </div>
+    <div class="eye">Em destaque</div>
+    <h2>Redondo<br/>Medieval</h2>
+    <div class="theme">Nas Cortes de D. Dinis</div>
+    <div class="card">
+      <div class="meta-row">
+        <div class="meta-chip">📅 29–31 Maio</div>
+        <div class="meta-chip">📍 Redondo</div>
+      </div>
+      <div class="cta">Ver detalhes no site →</div>
+    </div>
+  </div>
+  <div class="story-label">Story 1 — Evento</div>
+  <div class="hint">Usar para destacar o evento do fim de semana</div>
+  </div>
+
+  <!-- STORY 2: Contagem decrescente -->
+  <div class="story-wrap">
+  <div class="story s2">
+    <div class="bg"></div>
+    <div class="top-bar"></div>
+    <div class="brand">
+      <svg width="18" height="20" viewBox="0 0 40 44" fill="none">
+        <path d="M20 2 36 7v15c0 11-8 17-16 20C12 39 4 33 4 22V7L20 2Z" fill="#5e1f25" stroke="#5e1f25"/>
+        <path d="M20 11v20M11.5 19.5h17" stroke="#f3e6cf" stroke-width="2.2" stroke-linecap="round"/>
+        <circle cx="20" cy="19.5" r="3" fill="#cfa14e" stroke="#f3e6cf" stroke-width="1.2"/>
+      </svg>
+      <div class="brand-txt" style="color:rgba(30,13,8,.5)">FEIRAS MEDIEVAIS</div>
+    </div>
+    <div class="center">
+      <div class="eye2">A contar para…</div>
+      <h2>Mercado<br/>Medieval<br/>de Óbidos</h2>
+      <div class="sub">O maior de Portugal</div>
+    </div>
+    <div class="countdown">
+      <div class="cd-block">
+        <div class="cd-n">47</div>
+        <div class="cd-l">Dias</div>
+      </div>
+      <div class="cd-block">
+        <div class="cd-n">12</div>
+        <div class="cd-l">Horas</div>
+      </div>
+      <div class="cd-block">
+        <div class="cd-n">30</div>
+        <div class="cd-l">Min</div>
+      </div>
+    </div>
+    <div class="bottom-card">
+      <svg width="26" height="29" viewBox="0 0 40 44" fill="none">
+        <path d="M20 2 36 7v15c0 11-8 17-16 20C12 39 4 33 4 22V7L20 2Z" fill="rgba(255,245,225,.15)" stroke="rgba(207,161,78,.6)" stroke-width="1.5"/>
+        <path d="M20 11v20M11.5 19.5h17" stroke="#f3e6cf" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="20" cy="19.5" r="3" fill="#cfa14e" stroke="#f3e6cf" stroke-width="1.2"/>
+      </svg>
+      <div>
+        <div class="bc-txt">16 – 26 Julho · Óbidos</div>
+        <div class="bc-sub">Centro · Portugal</div>
+      </div>
+    </div>
+  </div>
+  <div class="story-label">Story 2 — Contagem</div>
+  <div class="hint">Usar para contagem decrescente antes de um grande evento</div>
+  </div>
+
+  <!-- STORY 3: Link Bio / Mapa -->
+  <div class="story-wrap">
+  <div class="story s3">
+    <div class="bg"></div>
+    <div class="top">
+      <div class="eye3">O mapa está online</div>
+      <h2>Encontra<br/>a tua feira</h2>
+    </div>
+    <div class="map-preview">
+      <svg viewBox="0 0 200 280" style="width:100%;height:100%;opacity:.85">
+        <path d="M60,15 L155,15 L165,30 L170,55 L165,90 L175,120 L170,155 L160,180 L150,210 L140,240 L120,260 L100,265 L80,255 L65,235 L55,205 L45,175 L40,145 L45,115 L40,85 L45,60 L50,35 Z"
+              fill="rgba(94,31,37,.12)" stroke="rgba(207,161,78,.35)" stroke-width="1.5"/>
+        <!-- Cluster pins -->
+        <g>
+          <circle cx="85" cy="55" r="16" fill="rgba(94,31,37,.8)" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="85" y="60" text-anchor="middle" font-family="Cinzel,serif" font-size="11" font-weight="700" fill="#f3e6cf">22</text>
+          <circle cx="100" cy="120" r="16" fill="rgba(94,31,37,.8)" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="100" y="125" text-anchor="middle" font-family="Cinzel,serif" font-size="11" font-weight="700" fill="#f3e6cf">26</text>
+          <circle cx="72" cy="175" r="13" fill="rgba(94,31,37,.75)" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="72" y="179" text-anchor="middle" font-family="Cinzel,serif" font-size="10" font-weight="700" fill="#f3e6cf">12</text>
+          <circle cx="108" cy="205" r="12" fill="rgba(94,31,37,.7)" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="108" y="209" text-anchor="middle" font-family="Cinzel,serif" font-size="10" font-weight="700" fill="#f3e6cf">9</text>
+          <circle cx="100" cy="245" r="11" fill="rgba(94,31,37,.65)" stroke="#cfa14e" stroke-width="1.5"/>
+          <text x="100" y="249" text-anchor="middle" font-family="Cinzel,serif" font-size="9" font-weight="700" fill="#f3e6cf">6</text>
+        </g>
+      </svg>
+    </div>
+    <div class="swipe-area">
+      <div class="swipe-txt">Ver mapa completo</div>
+      <div class="swipe-btn">
+        <span class="arrow-up">↑</span>
+        feirasmedievais.pt
+      </div>
+    </div>
+  </div>
+  <div class="story-label">Story 3 — Mapa/Link</div>
+  <div class="hint">Usar para direcionar para o mapa interactivo no site</div>
+  </div>
+
+</div>
+
+<div style="max-width:900px;margin:50px auto 0;background:#12090400;border:1px solid #3a2510;border-radius:8px;padding:28px 32px;">
+  <h2 style="color:#cfa14e;font-family:'Cinzel',serif;font-size:16px;letter-spacing:.06em;margin-bottom:18px;">📅 GUIA EDITORIAL — PRIMEIRAS 4 SEMANAS</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:12.5px;color:#c0a070;">
+    <thead>
+      <tr style="border-bottom:1px solid #3a2510;">
+        <th style="text-align:left;padding:8px 12px;color:#cfa14e;font-size:10px;letter-spacing:.14em;text-transform:uppercase;">Semana</th>
+        <th style="text-align:left;padding:8px 12px;color:#cfa14e;font-size:10px;letter-spacing:.14em;text-transform:uppercase;">Post</th>
+        <th style="text-align:left;padding:8px 12px;color:#cfa14e;font-size:10px;letter-spacing:.14em;text-transform:uppercase;">Formato</th>
+        <th style="text-align:left;padding:8px 12px;color:#cfa14e;font-size:10px;letter-spacing:.14em;text-transform:uppercase;">Hashtags</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #2a1a08;">
+        <td style="padding:10px 12px;font-weight:700;color:#f3e6cf;">Semana 1<br/><span style="font-weight:400;color:#8a7055;">Lançamento</span></td>
+        <td style="padding:10px 12px;">Post 1 (Boas-vindas)<br/>Post 9 (Link bio)<br/>Story 3 (Mapa)</td>
+        <td style="padding:10px 12px;">Feed + Story</td>
+        <td style="padding:10px 12px;font-size:11px;">#feirasmedievais #portugal #medieval #historiaportugal</td>
+      </tr>
+      <tr style="border-bottom:1px solid #2a1a08;">
+        <td style="padding:10px 12px;font-weight:700;color:#f3e6cf;">Semana 2<br/><span style="font-weight:400;color:#8a7055;">Eventos Maio</span></td>
+        <td style="padding:10px 12px;">Post 2 (Redondo Medieval)<br/>Post 3 (Agenda sem.)<br/>Story 1</td>
+        <td style="padding:10px 12px;">Feed + Story</td>
+        <td style="padding:10px 12px;font-size:11px;">#redondomedieval #alentejo #medievalfair #portugal2026</td>
+      </tr>
+      <tr style="border-bottom:1px solid #2a1a08;">
+        <td style="padding:10px 12px;font-weight:700;color:#f3e6cf;">Semana 3<br/><span style="font-weight:400;color:#8a7055;">Conhecer o site</span></td>
+        <td style="padding:10px 12px;">Post 5 (Tipos evento)<br/>Post 8 (Números)<br/>Story 2 (countdown)</td>
+        <td style="padding:10px 12px;">Feed + Story</td>
+        <td style="padding:10px 12px;font-size:11px;">#medievalmarket #torneio #templarios #recriacao</td>
+      </tr>
+      <tr>
+        <td style="padding:10px 12px;font-weight:700;color:#f3e6cf;">Semana 4<br/><span style="font-weight:400;color:#8a7055;">Regiões</span></td>
+        <td style="padding:10px 12px;">Post 4 (Mapa Portugal)<br/>Post 7 (Região Norte)<br/>Post 6 (Óbidos)</td>
+        <td style="padding:10px 12px;">Feed + Story</td>
+        <td style="padding:10px 12px;font-size:11px;">#obidos #mercadomedieval #norte #guimaraes #braga</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="color:#5a4535;font-size:11px;margin-top:16px;">💡 <strong style="color:#8a7055;">Dica:</strong> Publica às <strong style="color:#cfa14e">Terça e Sexta</strong> entre as 19h–21h para maior alcance. Stories diários na semana antes de cada evento.</p>
+</div>
+
+</body>
+</html>
